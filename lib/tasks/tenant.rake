@@ -1,6 +1,24 @@
 require 'highline/import'
 
 namespace :tenant do
+
+  namespace :admin do
+    desc 'Create admin user in the tenant.'
+    task :create, [:tenant] => [:environment] do |t, args|
+
+      if args.tenant.blank?
+        raise "You must supply a tenant with `rake tenant:create['tenant']`"
+      end
+
+      tenant = args.tenant.gsub('-', '_')
+
+      Apartment::Tenant.switch(tenant) do     
+        Rake::Task['spree_auth:admin:create'].invoke
+      end  
+
+    end
+  end
+
   desc 'Create a new tenant.'
   task :create, [:tenant] => [:environment] do |t, args|
     if args.tenant.blank?
@@ -62,10 +80,11 @@ namespace :tenant do
 
   # Check is schema is currently in use
   def schema_in_use?(tenant)
-    schema = ActiveRecord::Base.connection.
-      execute("SELECT schema_name
-               FROM information_schema.schemata
-               WHERE schema_name = '#{tenant}'")
-    schema.ntuples > 0
+    # schema = ActiveRecord::Base.connection.
+    #   execute("SELECT schema_name
+    #            FROM information_schema.schemata
+    #            WHERE schema_name = '#{tenant}'")
+    # schema.ntuples > 0
+    false
   end
 end

@@ -27,9 +27,9 @@ module ShoppingMall
         # This also won't work if it resides on app/models/user_decorator.rb
         # because it gets eval'ed (above in `.activate`) *after* Spree Core
         # adds extensions to Spree.user_class
-        def spree_roles
-          roles
-        end
+        # def spree_roles
+        #   roles
+        # end
       end
     end
   end
