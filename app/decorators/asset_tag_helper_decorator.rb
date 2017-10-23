@@ -1,8 +1,8 @@
 
 module ActionView::Helpers
-  
+
   def favicon_link_tag(source = "favicon.ico", options = {})  	
-  	source = (Spree::Preference.where(key: 'favicon').first || { value: source })[:value]
+  	source = Spree::Config.favicon
   	super(source, options)
   end
 
