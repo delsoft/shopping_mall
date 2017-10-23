@@ -12,7 +12,7 @@ module ShoppingMall
         Spree::Core::Engine.instance.eager_load!
       end
 
-      Dir[File.join(__dir__, '../../app/**/*_decorator*.rb')].each do |klass|
+      Dir[File.join(__dir__, '../../app/**/*_decorator*.rb')].each do |klass|    
         Rails.application.config.cache_classes ? require(klass) : load(klass)
       end
     end
