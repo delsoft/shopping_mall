@@ -59,8 +59,5 @@ end
 Spree::Image.attachment_definitions[:attachment][:url] = '/spree/products/:tenant/:id/:style/:basename.:extension'
 Spree::Image.attachment_definitions[:attachment][:path] = ':rails_root/public/spree/products/:tenant/:id/:style/:basename.:extension'
 
-# https://github.com/influitive/apartment/issues/134 for more information on this insert_before hack.
-Rails.application.config.middleware.insert_before(
-  'ActiveRecord::ConnectionAdapters::ConnectionManagement',
-  'Apartment::Elevators::Subdomain'
-)
+Rails.application.config.middleware.use Apartment::Elevators::Subdomain
+
