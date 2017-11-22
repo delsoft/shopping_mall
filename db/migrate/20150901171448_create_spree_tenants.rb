@@ -1,4 +1,4 @@
-class CreateSpreeTenants < ActiveRecord::Migration
+class CreateSpreeTenants < ActiveRecord::Migration[5.1]
   def change
     create_table :spree_tenants do |t|
       t.string :name
